@@ -3,6 +3,17 @@ from django.conf import settings
 from publications.models import Publisher
 
 class Article(models.Model):
+    """
+    Represents a news article created by a journalist.
+    
+    Attributes:
+        title (str): The headline of the article.
+        content (str): The body text of the article.
+        image (ImageField): Optional image for the article.
+        author (User): The journalist who wrote the article.
+        publisher (Publisher): The publisher associated with the article.
+        approved (bool): Status of approval by an editor.
+    """
     title = models.CharField(max_length=200)
     content = models.TextField()
     image = models.ImageField(upload_to='articles/', blank=True, null=True)
@@ -17,6 +28,15 @@ class Article(models.Model):
         return self.title
 
 class Newsletter(models.Model):
+    """
+    Represents a newsletter aggregating multiple articles.
+    
+    Attributes:
+        title (str): Title of the newsletter.
+        description (str): Brief description.
+        author (User): Creator of the newsletter.
+        articles (ManyToManyField): Articles included in this newsletter.
+    """
     title = models.CharField(max_length=200)
     description = models.TextField(blank=True)
     created_at = models.DateTimeField(auto_now_add=True)

@@ -8,6 +8,12 @@ from django.db.models import Q
 from .services import send_approval_notifications
 
 class ArticleViewSet(viewsets.ModelViewSet):
+    """
+    API ViewSet for viewing and editing articles.
+    
+    Provides standard actions (list, create, retrieve, update, destroy)
+    and custom actions for approval and subscription feeds.
+    """
     serializer_class = ArticleSerializer
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
 
@@ -41,6 +47,10 @@ class ArticleViewSet(viewsets.ModelViewSet):
 
     @action(detail=False, methods=['get'])
     def subscribed(self, request):
+        """
+        Return articles from publishers/journalists the user is subscribed to.
+        Only accessible by authenticated users.
+        """
         user = request.user
         if not user.is_authenticated:
             return Response({'detail': 'Authentication required.'}, status=status.HTTP_401_UNAUTHORIZED)
@@ -79,6 +89,10 @@ class ArticleViewSet(viewsets.ModelViewSet):
         return Response({'status': 'article approved'})
 
 class NewsletterViewSet(viewsets.ModelViewSet):
+    """
+    API ViewSet for viewing and managing newsletters.
+    Allows creation and retrieval of newsletters.
+    """
     serializer_class = NewsletterSerializer
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
     queryset = Newsletter.objects.all()

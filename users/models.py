@@ -2,6 +2,15 @@ from django.contrib.auth.models import AbstractUser
 from django.db import models
 
 class User(AbstractUser):
+    """
+    Custom User model supporting multiple roles (Reader, Journalist, Editor).
+    
+    Attributes:
+        role (str): The user's role in the system.
+        bio (str): Short biography for the user profile.
+        subscriptions_to_publishers (ManyToManyField): Publishers the user follows (Reader only).
+        subscriptions_to_journalists (ManyToManyField): Journalists the user follows (Reader only).
+    """
     class Roles(models.TextChoices):
         READER = 'READER', 'Reader'
         JOURNALIST = 'JOURNALIST', 'Journalist'

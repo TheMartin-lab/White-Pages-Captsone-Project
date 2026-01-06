@@ -4,6 +4,10 @@ from .serializers import PublisherSerializer
 from users.permissions import IsEditor
 
 class PublisherViewSet(viewsets.ModelViewSet):
+    """
+    API ViewSet for viewing and managing publishers.
+    Editors can create/update publishers; others can read only.
+    """
     queryset = Publisher.objects.all()
     serializer_class = PublisherSerializer
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]

@@ -3,6 +3,9 @@ from .models import Publisher
 from users.serializers import UserSerializer
 
 class PublisherSerializer(serializers.ModelSerializer):
+    """
+    Serializer for the Publisher model.
+    """
     editors = UserSerializer(many=True, read_only=True)
     journalists = UserSerializer(many=True, read_only=True)
     

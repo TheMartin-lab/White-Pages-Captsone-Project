@@ -7,6 +7,12 @@ from publications.models import Publisher
 User = get_user_model()
 
 class RegistrationForm(forms.ModelForm):
+    """
+    Form for user registration.
+    
+    Includes fields for basic user info, role selection, and 
+    initial subscriptions (for Readers).
+    """
     password1 = forms.CharField(widget=forms.PasswordInput)
     password2 = forms.CharField(widget=forms.PasswordInput)
     role = forms.ChoiceField(choices=User.Roles.choices)

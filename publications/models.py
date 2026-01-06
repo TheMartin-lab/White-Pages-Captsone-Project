@@ -2,6 +2,15 @@ from django.db import models
 from django.conf import settings
 
 class Publisher(models.Model):
+    """
+    Represents a media publisher or organization.
+    
+    Attributes:
+        title (str): Name of the publisher.
+        description (str): Description of the publisher.
+        editors (ManyToManyField): Editors associated with this publisher.
+        journalists (ManyToManyField): Journalists working for this publisher.
+    """
     title = models.CharField(max_length=200)
     description = models.TextField(blank=True)
     editors = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='publisher_editors', blank=True)
