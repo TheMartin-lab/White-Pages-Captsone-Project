@@ -1,0 +1,9 @@
+local_db/
+__pycache__/
+*.pyc
+*.db
+.venv/
+.env
+debug_*.py
+check_connector.py
+qc

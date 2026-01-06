@@ -2,7 +2,7 @@
 
 ## Project Overview
 
-This is a comprehensive Django-based news application developed as a Capstone project. The system is designed to manage the lifecycle of news articles, from creation by journalists to approval by editors and consumption by readers. It features a robust role-based access control (RBAC) system, subscription management, and a RESTful API.
+This is a comprehensive Django-based news application developed as a Capstone project. The system is designed to manage the lifecycle of news articles, from creation by journalists to approval by editors and consumption by readers. It features a robust role-based access control (RBAC) system, subscription management, a RESTful API, and is powered by a production-grade MariaDB database.
 
 ## Features & Functions
 
@@ -40,7 +40,8 @@ The application defines three distinct user roles with specific permissions:
 ### Tech Stack
 - **Backend**: Python, Django 6.0
 - **API**: Django Rest Framework (DRF)
-- **Database**: SQLite (default), extensible to PostgreSQL
+- **Database**: MariaDB (Production-grade SQL database)
+- **Driver**: PyMySQL (Pure Python MySQL client)
 - **Frontend**: Django Templates, Bootstrap 5.1.3
 - **Version Control**: Git
 
@@ -62,6 +63,26 @@ The application defines three distinct user roles with specific permissions:
 ### Prerequisites
 - Python 3.10+
 - pip (Python package manager)
+- MariaDB 12.1+ (Installed locally)
+
+### Database Setup
+The project is configured to use a local MariaDB instance on port **3307**.
+
+1.  **Initialize Local Database:**
+    (Optional if not already running)
+    ```powershell
+    # Start the local MariaDB server
+    & "C:\Program Files\MariaDB 12.1\bin\mysqld.exe" --console --datadir="<path_to_project>\local_db" --port=3307
+    ```
+
+2.  **Configure Database User:**
+    The project expects a user `django_user` with password `password` and a database named `capstone_news_db`.
+    ```sql
+    CREATE DATABASE IF NOT EXISTS capstone_news_db;
+    CREATE OR REPLACE USER 'django_user'@'localhost' IDENTIFIED BY 'password';
+    GRANT ALL PRIVILEGES ON capstone_news_db.* TO 'django_user'@'localhost';
+    FLUSH PRIVILEGES;
+    ```
 
 ### Installation
 
@@ -95,15 +116,23 @@ The application defines three distinct user roles with specific permissions:
    ```
    Access the application at `http://127.0.0.1:8000/`.
 
-3. **Accessing the App:**
+3. **Login Credentials:**
+   The seeding script creates the following accounts:
+   
+   | Role | Username | Password |
+   |------|----------|----------|
+   | **Superuser** | `admin` | `password123` |
+   | **Journalist** | `reporter1` | `news123!` |
+   | **Journalist** | `reporter2` | `news123!` |
+
+4. **Accessing the App:**
    - **Home**: `http://127.0.0.1:8000/`
    - **Register**: `http://127.0.0.1:8000/users/register/`
-   - **Login**: `http://127.0.0.1:8000/users/login/`
+   - **Admin Panel**: `http://127.0.0.1:8000/admin/`
 
-### Running Tests
-To ensure system stability, run the unit tests:
-```bash
-python manage.py test
-```
-# https://github.com/hyperiondev-bootcamps/JO25080018810/tree/main/Level%202%20-%20Introduction%20to%20Software%20Engineering/M06T08%20%E2%80%93%20Capstone%20Project%20%E2%80%93%20News%20Application 
-Joshua Martin
+---
+
+### project repository
+https://github.com/hyperiondev-bootcamps/JO25080018810/tree/main/Level%202%20-%20Introduction%20to%20Software%20Engineering/M06T08%20%E2%80%93%20Capstone%20Project%20%E2%80%93%20News%20Application
+
+joshua martin

@@ -83,10 +83,14 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'capstone_news_db',
-        'USER': 'root',
-        'PASSWORD': '',
+        'USER': 'django_user',
+        'PASSWORD': 'password',
         'HOST': '127.0.0.1',
-        'PORT': '3306',
+        'PORT': '3307',
+        'OPTIONS': {
+            'charset': 'utf8mb4',
+            'use_unicode': True,
+        },
     }
 }
 

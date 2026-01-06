@@ -1,4 +1,4 @@
 Django
 djangorestframework
 pymysql
-urllib3==2.6.2
+Pillow
