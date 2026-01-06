@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ article.title }}{% endblock %}
+
+{% block content %}
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{% url 'home' %}">Home</a></li>
+            {% if article.publisher %}
+                <li class="breadcrumb-item"><a href="{% url 'publisher_feed' %}">Publishers</a></li>
+            {% else %}
+                <li class="breadcrumb-item"><a href="{% url 'independent_feed' %}">Independent</a></li>
+            {% endif %}
+            <li class="breadcrumb-item active" aria-current="page">{{ article.title }}</li>
+        </ol>
+    </nav>
+
+    <article class="blog-post">
+        <h2 class="blog-post-title mb-1">{{ article.title }}</h2>
+        <p class="blog-post-meta">
+            {{ article.created_at|date:"F d, Y" }} by <a href="#">{{ article.author.username }}</a>
+            {% if article.publisher %}
+                | <span class="badge bg-secondary">{{ article.publisher.title }}</span>
+            {% else %}
+                | <span class="badge bg-success">Independent</span>
+            {% endif %}
+        </p>
+
+        {% if article.image %}
+            <img src="{{ article.image.url }}" class="img-fluid mb-4 rounded" alt="{{ article.title }}">
+        {% endif %}
+
+        <div class="article-content">
+            {{ article.content|linebreaks }}
+        </div>
+    </article>
+    
+    <hr>
+    <a href="javascript:history.back()" class="btn btn-outline-secondary">Back</a>
+{% endblock %}
