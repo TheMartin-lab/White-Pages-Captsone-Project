@@ -66,16 +66,24 @@ The application defines three distinct user roles with specific permissions:
 - MariaDB 12.1+ (Installed locally)
 
 ### Database Setup
-The project is configured to use a local MariaDB instance on port **3307**.
+The project is configured to use a local MariaDB instance on port **3307**. Configuration is managed via the `.env` file.
 
 1.  **Initialize Local Database:**
-    (Optional if not already running)
+    Use the provided PowerShell script to start the database using the portable `local_db` directory.
     ```powershell
-    # Start the local MariaDB server
-    & "C:\Program Files\MariaDB 12.1\bin\mysqld.exe" --console --datadir="<path_to_project>\local_db" --port=3307
+    # Start the local MariaDB server (Portable script)
+    .\start_db.ps1
     ```
 
-2.  **Configure Database User:**
+2.  **Environment Configuration:**
+    A `.env` file is included with default development settings. You can modify this file to change database credentials, ports, or secret keys without editing the code.
+    ```env
+    DB_PORT=3307
+    DB_USER=django_user
+    DB_PASSWORD=password
+    ```
+
+3.  **Configure Database User (First Run Only):**
     The project expects a user `django_user` with password `password` and a database named `capstone_news_db`.
     ```sql
     CREATE DATABASE IF NOT EXISTS capstone_news_db;
