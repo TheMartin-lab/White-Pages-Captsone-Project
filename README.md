@@ -138,6 +138,21 @@ The project is configured to use a local MariaDB instance on port **3307**. Conf
    - **Register**: `http://127.0.0.1:8000/users/register/`
    - **Admin Panel**: `http://127.0.0.1:8000/admin/`
 
+### Running in IDEs
+
+#### Visual Studio (2019/2022)
+1.  Open Visual Studio.
+2.  Select **"Open a Local Folder"**.
+3.  Navigate to and select the project folder.
+4.  Visual Studio should automatically detect the Python environment (if not, select it from the dropdown).
+5.  Open `manage.py` and click the **Start** button (green play icon) or right-click `manage.py` and select **Start Debugging**.
+
+#### Visual Studio Code
+1.  Open the folder in VS Code.
+2.  Install the **Python** extension.
+3.  Select your Python interpreter (Ctrl+Shift+P -> "Python: Select Interpreter").
+4.  Press **F5** to start the server (a `launch.json` is provided).
+
 ---
 
 ### project repository
