@@ -187,6 +187,6 @@ The project is configured to use a local MariaDB instance on port **3307**. Conf
 ---
 
 ### project repository
-https://github.com/hyperiondev-bootcamps/JO25080018810/tree/main/Level%202%20-%20Introduction%20to%20Software%20Engineering/M06T08%20%E2%80%93%20Capstone%20Project%20%E2%80%93%20News%20Application
+https://github.com/TheMartin-lab/White-Pages-Captsone-Project
 
 joshua martin
