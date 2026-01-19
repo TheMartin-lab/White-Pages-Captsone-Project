@@ -110,6 +110,13 @@ The project is configured to use a local MariaDB instance on port **3307**. Conf
    python manage.py migrate
    ```
 
+4. **(Optional) Create and use a virtual environment:**
+   ```bash
+   python -m venv .venv
+   source .venv/bin/activate  # On Windows: .venv\Scripts\activate
+   pip install -r requirements.txt
+   ```
+
 ### Usage
 
 1. **Seed Initial Data:**
@@ -137,6 +144,30 @@ The project is configured to use a local MariaDB instance on port **3307**. Conf
    - **Home**: `http://127.0.0.1:8000/`
    - **Register**: `http://127.0.0.1:8000/users/register/`
    - **Admin Panel**: `http://127.0.0.1:8000/admin/`
+
+### Running with Docker
+
+1. **Build the image:**
+   From the project root (where `Dockerfile` is located):
+   ```bash
+   docker build -t capstone-news-app .
+   ```
+
+2. **Run the container:**
+   ```bash
+   docker run --rm -p 8000:8000 capstone-news-app
+   ```
+
+3. **Access the application:**
+   Open `http://127.0.0.1:8000/` in your browser.
+
+4. **Environment variables and secrets:**
+   The container uses the default settings in `news_app/settings.py` and any values you provide via environment variables.
+   Do not hard-code secrets such as passwords or tokens into the image.
+   Instead, pass them at runtime, for example:
+   ```bash
+   docker run --rm -p 8000:8000 -e SECRET_KEY="your-secret-key" capstone-news-app
+   ```
 
 ### Running in IDEs
 

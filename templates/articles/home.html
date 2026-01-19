@@ -31,9 +31,23 @@
                             </h6>
                             <p class="card-text">{{ article.content|truncatewords:30 }}</p>
                             <a href="{% url 'article_detail' article.id %}" class="btn btn-primary btn-sm">Read More</a>
+                            {% if user.is_authenticated %}
+                                {% if user.role == 'EDITOR' or user.role == 'JOURNALIST' and article.author == user %}
+                                    <a href="{% url 'edit_article' article.id %}" class="btn btn-secondary btn-sm">Edit</a>
+                                {% endif %}
+                            {% endif %}
                         </div>
-                        <div class="card-footer text-muted">
-                            By {{ article.author.username }} on {{ article.created_at|date:"M d, Y" }}
+                        <div class="card-footer text-muted d-flex justify-content-between align-items-center">
+                            <span>By {{ article.author.username }} on {{ article.created_at|date:"M d, Y" }}</span>
+                            {% if user.is_authenticated and user.role == 'READER' %}
+                                <a href="{% url 'subscribe_to_author' article.author.id %}" class="btn btn-outline-info btn-sm">
+                                    {% if article.author in user.subscriptions_to_journalists.all %}
+                                        Unsubscribe
+                                    {% else %}
+                                        Subscribe
+                                    {% endif %}
+                                </a>
+                            {% endif %}
                         </div>
                     </div>
                 </div>

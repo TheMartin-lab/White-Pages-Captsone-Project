@@ -19,6 +19,15 @@
         <h2 class="blog-post-title mb-1">{{ article.title }}</h2>
         <p class="blog-post-meta">
             {{ article.created_at|date:"F d, Y" }} by <a href="#">{{ article.author.username }}</a>
+            {% if user.is_authenticated and user.role == 'READER' %}
+                <a href="{% url 'subscribe_to_author' article.author.id %}" class="badge bg-info text-decoration-none text-dark">
+                    {% if article.author in user.subscriptions_to_journalists.all %}
+                        Unsubscribe
+                    {% else %}
+                        Subscribe
+                    {% endif %}
+                </a>
+            {% endif %}
             {% if article.publisher %}
                 | <span class="badge bg-secondary">{{ article.publisher.title }}</span>
             {% else %}
@@ -30,11 +39,29 @@
             <img src="{{ article.image.url }}" class="img-fluid mb-4 rounded" alt="{{ article.title }}">
         {% endif %}
 
-        <div class="article-content">
-            {{ article.content|linebreaks }}
+    <div class="article-content">
+        {{ article.content|linebreaks }}
+    </div>
+    
+    {% if user.is_authenticated and user == article.author and article.declined_reason %}
+        <div class="alert alert-danger mt-4">
+            <strong>Declined by editor:</strong>
+            <div class="small text-muted">
+                {% if article.declined_by %}{{ article.declined_by.username }}{% endif %}
+                {% if article.declined_at %}on {{ article.declined_at|date:"M d, Y H:i" }}{% endif %}
+            </div>
+            <p class="mb-0">{{ article.declined_reason }}</p>
         </div>
+    {% endif %}
     </article>
     
     <hr>
-    <a href="javascript:history.back()" class="btn btn-outline-secondary">Back</a>
+    <div class="d-flex gap-2">
+        <a href="javascript:history.back()" class="btn btn-outline-secondary">Back</a>
+        {% if user.is_authenticated %}
+            {% if user.role == 'EDITOR' or user.role == 'JOURNALIST' and article.author == user %}
+                <a href="{% url 'edit_article' article.id %}" class="btn btn-primary">Edit Article</a>
+            {% endif %}
+        {% endif %}
+    </div>
 {% endblock %}

@@ -3,7 +3,10 @@ __pycache__/
 *.pyc
 *.db
 .venv/
+venv/
 .env
 debug_*.py
 check_connector.py
 qc
+docs/_build/
+

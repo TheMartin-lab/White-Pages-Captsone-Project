@@ -86,16 +86,8 @@ WSGI_APPLICATION = 'news_app.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': os.getenv('DB_NAME', 'capstone_news_db'),
-        'USER': os.getenv('DB_USER', 'django_user'),
-        'PASSWORD': os.getenv('DB_PASSWORD', 'password'),
-        'HOST': os.getenv('DB_HOST', '127.0.0.1'),
-        'PORT': os.getenv('DB_PORT', '3307'),
-        'OPTIONS': {
-            'charset': 'utf8mb4',
-            'use_unicode': True,
-        },
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
 

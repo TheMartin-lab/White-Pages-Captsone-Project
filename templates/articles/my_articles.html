@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h1>{{ title }}</h1>
+    <a href="{% url 'create_article' %}" class="btn btn-primary">Create Article</a>
+</div>
+
+{% if articles %}
+    <div class="table-responsive">
+        <table class="table table-striped align-middle">
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Publisher</th>
+                    <th>Status</th>
+                    <th>Updated</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for article in articles %}
+                    <tr>
+                        <td>
+                            <a href="{% url 'article_detail' article.id %}">{{ article.title }}</a>
+                        </td>
+                        <td>
+                            {% if article.publisher %}
+                                {{ article.publisher.title }}
+                            {% else %}
+                                Independent
+                            {% endif %}
+                        </td>
+                        <td>
+                            {% if article.approved %}
+                                <span class="badge bg-success">Published</span>
+                            {% elif article.declined_reason %}
+                                <span class="badge bg-danger">Declined</span>
+                            {% else %}
+                                <span class="badge bg-warning text-dark">Pending</span>
+                            {% endif %}
+                        </td>
+                        <td>{{ article.updated_at|date:"M d, Y H:i" }}</td>
+                        <td>
+                            <a href="{% url 'edit_article' article.id %}" class="btn btn-outline-secondary btn-sm">Edit</a>
+                            {% if article.declined_reason %}
+                                <button class="btn btn-outline-danger btn-sm" type="button" data-bs-toggle="collapse" data-bs-target="#decline-{{ article.id }}">
+                                    View Reason
+                                </button>
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% if article.declined_reason %}
+                        <tr class="table-danger">
+                            <td colspan="5">
+                                <div id="decline-{{ article.id }}" class="collapse">
+                                    <strong>Decline Reason:</strong>
+                                    <div class="small text-muted">
+                                        {% if article.declined_by %}{{ article.declined_by.username }}{% endif %}
+                                        {% if article.declined_at %}on {{ article.declined_at|date:"M d, Y H:i" }}{% endif %}
+                                    </div>
+                                    <div>{{ article.declined_reason }}</div>
+                                </div>
+                            </td>
+                        </tr>
+                    {% endif %}
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% else %}
+    <div class="alert alert-info">You have not authored any articles yet.</div>
+{% endif %}
+{% endblock %}
+

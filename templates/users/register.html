@@ -44,17 +44,37 @@
   <div id="reader-fields">
     <div class="mb-3">
       <label class="form-label">Subscribe to Publishers</label>
-      {{ form.subscriptions_to_publishers }}
-      {% if form.subscriptions_to_publishers.errors %}<div class="text-danger">{{ form.subscriptions_to_publishers.errors.0 }}</div>{% endif %}
+      <div class="card p-2" style="max-height: 150px; overflow-y: auto;">
+        {% for checkbox in form.subscriptions_to_publishers %}
+          <div class="form-check">
+            {{ checkbox.tag }}
+            <label class="form-check-label" for="{{ checkbox.id_for_label }}">
+              {{ checkbox.choice_label }}
+            </label>
+          </div>
+        {% empty %}
+          <small class="text-muted">No publishers available.</small>
+        {% endfor %}
+      </div>
     </div>
     <div class="mb-3">
       <label class="form-label">Subscribe to Journalists</label>
-      {{ form.subscriptions_to_journalists }}
-      {% if form.subscriptions_to_journalists.errors %}<div class="text-danger">{{ form.subscriptions_to_journalists.errors.0 }}</div>{% endif %}
+      <div class="card p-2" style="max-height: 150px; overflow-y: auto;">
+        {% for checkbox in form.subscriptions_to_journalists %}
+          <div class="form-check">
+            {{ checkbox.tag }}
+            <label class="form-check-label" for="{{ checkbox.id_for_label }}">
+              {{ checkbox.choice_label }}
+            </label>
+          </div>
+        {% empty %}
+          <small class="text-muted">No journalists available.</small>
+        {% endfor %}
+      </div>
     </div>
   </div>
   <button type="submit" class="btn btn-primary">Register</button>
-  <a href="/admin/" class="btn btn-link">Login</a>
+  <a href="{% url 'login' %}" class="btn btn-link">Login</a>
 </form>
 <script>
   (function() {
