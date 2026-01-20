@@ -8,5 +8,5 @@ venv/
 debug_*.py
 check_connector.py
 qc
-docs/_build/
+
 
