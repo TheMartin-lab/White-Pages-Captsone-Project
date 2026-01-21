@@ -1,12 +1,41 @@
-local_db/
+# General
 __pycache__/
-*.pyc
-*.db
-.venv/
-venv/
+*.py[cod]
+*$py.class
+
+# Django
+*.log
+local_settings.py
+db.sqlite3
+db.sqlite3-journal
+media/
+staticfiles/
+
+# Environments
 .env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Documentation
+docs/_build/
+
+# Testing
+.coverage
+htmlcov/
+.pytest_cache/
+
+# Project specific
+local_db/
 debug_*.py
 check_connector.py
 qc
-
-
