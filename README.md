@@ -72,7 +72,7 @@ The project is configured to use a local MariaDB instance on port **3307**. Conf
     Use the provided PowerShell script to start the database using the portable `local_db` directory.
     ```powershell
     # Start the local MariaDB server (Portable script)
-    .\start_db.ps1
+    .\scripts\start_db.ps1
     ```
 
 2.  **Environment Configuration:**
